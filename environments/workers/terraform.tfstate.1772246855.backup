@@ -1,0 +1,58 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.6",
+  "serial": 5,
+  "lineage": "3965953e-f135-6f0d-0235-6b29bd6ea518",
+  "outputs": {
+    "worker_ips": {
+      "value": [
+        "192.168.100.20"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string"
+        ]
+      ]
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "proxmox_virtual_environment_file",
+      "name": "worker_cloudinit",
+      "provider": "provider[\"registry.terraform.io/bpg/proxmox\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "content_type": "snippets",
+            "datastore_id": "local",
+            "file_mode": null,
+            "file_modification_date": null,
+            "file_name": "worker-1-cloudinit.yaml",
+            "file_size": null,
+            "file_tag": null,
+            "id": "local:snippets/worker-1-cloudinit.yaml",
+            "node_name": "death-star",
+            "overwrite": true,
+            "source_file": [],
+            "source_raw": [
+              {
+                "data": "#cloud-config\nhostname: worker-1\nusers:\n  - name: nikhil\n    ssh_authorized_keys:\n      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZjX3Zd/+QMTfqdKFqjcM5PHCzEFIfQnE+cMNVNVyMG nikhil@blade\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    shell: /bin/bash\npackage_update: true\npackages:\n  - curl\nruncmd:\n  - curl -sfL https://get.k3s.io | K3S_URL=https://192.168.100.10:6443 K3S_TOKEN=K10608fabdfe84fa76cb8c68fc2e04c07c655b9de932624fc1c85d287cdb56e3f4f::server:a162b384180657228697dca45f3b6314 sh -\n",
+                "file_name": "worker-1-cloudinit.yaml",
+                "resize": 0
+              }
+            ],
+            "timeout_upload": 1800
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
