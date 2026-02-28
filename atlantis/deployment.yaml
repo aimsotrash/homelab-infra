@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: atlantis
+  namespace: atlantis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atlantis
+  namespace: atlantis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atlantis
+  template:
+    metadata:
+      labels:
+        app: atlantis
+    spec:
+      serviceAccountName: atlantis
+      containers:
+        - name: atlantis
+          image: ghcr.io/runatlantis/atlantis:v0.31.0
+          ports:
+            - containerPort: 4141
+          env:
+            - name: ATLANTIS_GH_USER
+              value: "aimsotrash"
+            - name: ATLANTIS_GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: atlantis-secrets
+                  key: github_token
+            - name: ATLANTIS_GH_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: atlantis-secrets
+                  key: github_webhook_secret
+            - name: ATLANTIS_REPO_ALLOWLIST
+              value: "github.com/aimsotrash/homelab-infra"
+            - name: ATLANTIS_PORT
+              value: "4141"
+            - name: ATLANTIS_ATLANTIS_URL
+              value: "https://atlantis.homelab.internal"
+            - name: TF_VAR_proxmox_password
+              valueFrom:
+                secretKeyRef:
+                  name: atlantis-secrets
+                  key: proxmox_password
+          volumeMounts:
+            - name: atlantis-data
+              mountPath: /atlantis
+      volumes:
+        - name: atlantis-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atlantis
+  namespace: atlantis
+spec:
+  selector:
+    app: atlantis
+  ports:
+    - port: 4141
+      targetPort: 4141
+  type: ClusterIP
