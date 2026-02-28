@@ -19,6 +19,8 @@
       packages:
         - curl
       runcmd:
+        - systemctl enable qemu-guest-agent
+        - systemctl start qemu-guest-agent
         - curl -sfL https://get.k3s.io | K3S_URL=https://192.168.100.10:6443 K3S_TOKEN=K10608fabdfe84fa76cb8c68fc2e04c07c655b9de932624fc1c85d287cdb56e3f4f::server:a162b384180657228697dca45f3b6314 sh -
     EOF
   }
@@ -29,6 +31,12 @@ resource "proxmox_virtual_environment_vm" "worker" {
   name      = "worker-${count.index + 1}"
   node_name = "death-star"
   vm_id     = 200 + count.index
+  timeout_create = 120
+
+  
+  agent {
+    enabled = false
+  }
 
   clone {
     vm_id = 9000
