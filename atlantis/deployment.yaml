@@ -26,6 +26,8 @@ spec:
           ports:
             - containerPort: 4141
           env:
+            - name: ATLANTIS_REPO_CONFIG_JSON
+              value: '{"repos":[{"id":"/.*/","allowed_overrides":["apply_requirements","workflow"],"allow_custom_workflows":true}]}'
             - name: ATLANTIS_GH_USER
               value: "aimsotrash"
             - name: ATLANTIS_GH_TOKEN
