@@ -11,5 +11,3 @@ projects:
         - "*.tf"
         - "*.tfvars"
       enabled: true
-    apply_requirements:
-      - approved
