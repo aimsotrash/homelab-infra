@@ -2,8 +2,8 @@ version: 3
 automerge: false
 delete_source_branch_on_merge: false
 projects:
-  - name: workers
-    dir: environments/workers
+  - name: services
+    dir: environments/services
     workspace: default
     terraform_version: v1.9.0
     autoplan:

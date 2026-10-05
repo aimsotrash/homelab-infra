@@ -51,6 +51,11 @@ spec:
                 secretKeyRef:
                   name: atlantis-secrets
                   key: proxmox_password
+            - name: TF_VAR_vm_password
+              valueFrom:
+                secretKeyRef:
+                  name: atlantis-secrets
+                  key: vm_password
           volumeMounts:
             - name: atlantis-data
               mountPath: /atlantis

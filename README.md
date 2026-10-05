@@ -46,7 +46,7 @@ flowchart LR
 | Path | What it is |
 | --- | --- |
 | [`environments/services/`](environments/services) | Terraform for the services VM: a full clone of the cloud-init template (4 vCPU, 8 GB RAM, 64 GB disk, static IP) and a cloud-init snippet that installs Docker, Tailscale and the QEMU guest agent and lays out directories for the self-hosted apps (Vaultwarden, Immich, Homarr, File Browser, Portainer) |
-| [`atlantis/`](atlantis) | Kubernetes manifests that run Atlantis in the cluster. The GitHub token, webhook secret and Proxmox password come from a Kubernetes Secret, and the repo allowlist is limited to this repository |
+| [`atlantis/`](atlantis) | Kubernetes manifests that run Atlantis in the cluster. The GitHub token, webhook secret, and the Proxmox and VM passwords come from a Kubernetes Secret, and the repo allowlist is limited to this repository |
 | [`atlantis.yaml`](atlantis.yaml) | Atlantis project config: autoplan when `.tf` or `.tfvars` files change |
 | [`k8s/gpu/`](k8s/gpu) | The NVIDIA device plugin DaemonSet and a [step-by-step guide](k8s/gpu/Readme.md) to exposing the GPU to pods over Tailscale: RuntimeClass, node labels, verification and troubleshooting |
 
