@@ -1,5 +1,7 @@
 # homelab-infra
 
+[![CI](https://github.com/aimsotrash/homelab-infra/actions/workflows/ci.yml/badge.svg)](https://github.com/aimsotrash/homelab-infra/actions/workflows/ci.yml)
+
 Infrastructure as code for my homelab: a private cloud on a bare-metal Proxmox host.
 Terraform provisions VMs from a cloud-init template, a k3s cluster spans machines
 over a Tailscale overlay (including a GPU worker node), and Atlantis runs Terraform from pull requests.
@@ -53,8 +55,10 @@ flowchart LR
 ## Change workflow
 
 1. Change Terraform on a branch and open a pull request.
-2. Atlantis plans the affected project and posts the plan on the pull request.
-3. Comment `atlantis apply` to apply it, then merge (automerge is off).
+2. GitHub Actions checks Terraform formatting, validates the config and checks the
+   Kubernetes manifests against their schemas.
+3. Atlantis plans the affected project and posts the plan on the pull request.
+4. Comment `atlantis apply` to apply it, then merge (automerge is off).
 
 ## GPU worker
 
