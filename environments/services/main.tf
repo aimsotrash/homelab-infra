@@ -31,12 +31,12 @@ provider "proxmox" {
 # VM ID 201, IP 192.168.100.21
 # -------------------------------------------------------------------
 resource "proxmox_virtual_environment_vm" "services" {
-  name    = "services"
+  name      = "services"
   node_name = "death-star"
-  vm_id   = 201
+  vm_id     = 201
 
   clone {
-    vm_id = 9000  # ubuntu-cloud-template
+    vm_id = 9000 # ubuntu-cloud-template
     full  = true
   }
 
@@ -46,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "services" {
   }
 
   memory {
-    dedicated = 8192  # 8GB
+    dedicated = 8192 # 8GB
   }
 
   # Resize the cloned disk to 64GB (template is 4GB)
